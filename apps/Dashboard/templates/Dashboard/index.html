@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Index</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+<body>
+<div id="navbar">
+	<p>Test App</p>
+	<a href="/">Home</a>
+	<a href="/sign_in">Sign in</a>
+</div>
+<div id="wrapper">
+	<div id="main">
+		<h1>Welcome to the Test</h1>
+		<p>We're going to build a cool application using a MVC framework! This application was built with the Village88 folks!</p>
+		<form action="/sign_in">
+			<button>Start</button>
+			{% csrf_token %}
+		</form>
+	</div>
+	<div class="info">
+		<h2>Manage Users</h2>
+		<p>Using this application, you'll learn how to add, remove, and edit users for the application</p>
+	</div>
+	<div class="info">
+		<h2>Leave messages</h2>
+		<p>Users will be able to leave a message to another user using this application</p>
+	</div>
+	<div class="info">
+		<h2>Edit User Information</h2>
+		<p>Admins will be able to edit another user's information (email address, first name, last name, etc.)</p>
+	</div>
+</div>
+</body>
+</html>

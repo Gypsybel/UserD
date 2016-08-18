@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>New User</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+<body>
+<div id="nav">
+	<p>Test App</p>
+	<a href="/dashboard">Dashboard</a>
+	<a href="/edit/{{session.id}}">Profile</a>
+	<a href="/logoff">Log off</a>
+</div>
+<form id="register" action="/create">
+	<h1>Add a new user</h1>
+	Email Address:
+	<input type="text" name="email">
+	First Name:
+	<input type="text" name="first_name">
+	Last Name:
+	<input type="text" name="last_name">
+	Password:
+	<input type="text" name="password">
+	Password Confirmation:
+	<input type="text" name="password_confirmation">
+	<button>Create</button>
+	{% csrf_token %}
+</form>
+</body>
+</html>

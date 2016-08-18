@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Edit User</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+<body>
+<div id="nav">
+	<p>Test App</p>
+	<a href="/dashboard">Dashboard</a>
+	<a href="/edit/{{request.session.user_id}}">Profile</a>
+	<a href="/logoff">Log off</a>
+</div>
+{% for entry in users %}
+	<div id="edit_info">
+		<h1>Edit user # {{entry.id}}</h1>
+		<p>Edit Information</p>
+		<form action="/update/{{entry.id}}" method="POST">
+			<p>Email Address:</p>
+			<input type="text" name="email" placeholder="{{entry.email}}">
+			<p>First Name:</p>
+			<input type="text" name="first_name" placeholder="{{entry.first_name}}">	
+			<p>Last Name:</p>
+			<input type="text" name="last_name" placeholder="{{entry.last_name}}">
+			<p>User Level:</p>
+			<select name="user_level">
+			<option value="normal">Normal</option>
+			<option value="admin">Admin</option>
+			</select>
+			<button>Save</button>								
+			{% csrf_token %}
+		</form>
+	</div>
+	<div id="change_password">
+		<p>Change Password</p>
+		<form action="/update_password/{{entry.id}}" method="POST">
+			<p>Password:</p>
+			<input type="text" name="password">	
+			<p>Password Confirmation</p>
+			<input type="text" name="password_confirmation">
+			<button>Update Password</button>								
+			{% csrf_token %}			
+		</form>
+	</div>
+{% endfor %}
+</body>
+</html>

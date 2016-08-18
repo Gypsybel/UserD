@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<title>Show</title>
+</head>
+<body>
+<div id="nav">
+	<p>Test App</p>
+	<a href="/dashboard">Dashboard</a>
+	<a href="/edit/{{request.session.user_id}}">Profile</a>
+	<a href="/logoff">Log off</a>
+</div>
+<div>
+{% for entry in users %}
+	<h2>{{entry.first_name}} {{entry.last_name}}</h2>
+	<table>	
+		<tr>
+			<td>Registered at:</td>
+			<td>{{entry.created_at}}</td>
+		</tr>
+		<tr>
+			<td>User ID:</td>
+			<td>#{{entry.id}}</td>
+		</tr>
+		<tr>
+			<td>Email address:</td>
+			<td>{{entry.email}}</td>
+		</tr>
+		<tr>
+			<td>Description:</td>
+			<td>{{entry.description}}</td>
+		</tr>
+	</table>
+	<h1>Leave a Message for {{entry.first_name}}</h1>
+	<form action="/postm/{{request.session.user_id}}/{{entry.id}}" method="POST">
+		<input type="text" name="message">
+		<button>Post</button>
+		{% csrf_token %}
+	</form>
+	{% for message in messages %}
+		{% for object in userobjects %}
+			{% if object == message.message_user %}
+				{{object.first_name}} {{object.last_name}} wrote:
+			{% endif %}
+		{% endfor %}
+		<p>{{message.message}}{{message.created_at}}</p>
+		{% for comment in comments %}
+			{% if comment.comment_message == message %}
+				{% for object in userobjects %}
+					{% if object == comment.comment_user %}
+						{{object.first_name}} {{object.last_name}} wrote:
+					{% endif %}
+				{% endfor %}
+				<p>{{comment.comment}}{{comment.created_at}}</p>
+			{% endif %}
+		{% endfor %}
+	<form action="/postc/{{request.session.user_id}}/{{message.id}}/{{entry.id}}" method="POST">
+		<input type="text" name="comment">
+		<button>Post Comment</button>
+		{% csrf_token %}
+	</form>
+	{% endfor %}
+{% endfor %}
+	
+</div>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<title>Admin Dashboard</title>
+</head>
+<body>
+<div id="nav">
+	<p>Test App</p>
+	<a href="/dashboard">Dashboard</a>
+	<a href="/edit/{{request.session.user_id}}">Profile</a>
+	<a href="/logoff">Log off</a>
+</div>
+	<h1>Manage Users</h1>
+	<form id="addnew" action="/addnew">
+		<button>Add new</button>
+	{% csrf_token %}	
+	</form>
+	<table>
+		<tr>
+			<th>ID</th>
+			<th>Name^</th>
+			<th>email</th>
+			<th>created_at</th>
+			<th>user_level</th>
+			<th>actions</th>
+		</tr>
+		{% for entry in users %}
+		<tr>
+			<td><a href="/show/{{entry.id}}">{{entry.first_name}} {{entry.last_name}}</a></td>
+			<td>{{entry.email}}</td>
+			<td>{{entry.created_at}}</td>
+			<td>{{entry.user_level}}</td>
+			<td><a href="/admin_edit/{{entry.id}}">edit</a></td>
+			<td><a href="/remove/{{entry.id}}">remove</a></td>
+		{% endfor %}
+		</tr>
+	</table>
+</body>
+</html>
